@@ -1,5 +1,3 @@
-// api.js
-
 const BASE_URL = "https://jsonplaceholder.typicode.com";
 const WORLD_TIME_API_BASE_URL = "http://worldtimeapi.org/api/timezone";
 

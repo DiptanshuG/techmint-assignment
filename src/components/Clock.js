@@ -12,22 +12,26 @@ const ClockContainer = styled.div`
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 `;
 
-const Clock = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+const Clock = ({ currentTime, paused }) => {
+  const [displayedTime, setDisplayedTime] = useState(currentTime || new Date());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    let timer;
+
+    if (!paused) {
+      timer = setInterval(() => {
+        setDisplayedTime(new Date());
+      }, 1000);
+    }
 
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [paused]);
 
   return (
     <ClockContainer>
-      {currentTime.toLocaleTimeString()}
+      {displayedTime.toLocaleTimeString()}
     </ClockContainer>
   );
 };

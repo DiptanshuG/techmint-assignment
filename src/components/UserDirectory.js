@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, getUserPosts } from '../services/api';
-import UserCard from './UserCard'; 
+import UserCard from './UserCard';
+import CustomLoader from './Loader';
 
 const UserDirectory = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getUsers()
       .then((data) => {
-        // Fetch user posts for each user and update the user data
         const fetchUserPostPromises = data.map((user) => {
           return getUserPosts(user.id)
             .then((posts) => {
@@ -18,22 +19,36 @@ const UserDirectory = () => {
             });
         });
 
-        // Wait for all user post fetches to complete
         Promise.all(fetchUserPostPromises)
-          .then((usersWithPosts) => setUsers(usersWithPosts))
-          .catch((error) => console.error('Error fetching user posts:', error));
+          .then((usersWithPosts) => {
+            setUsers(usersWithPosts);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.error('Error fetching user posts:', error);
+            setLoading(false);
+          });
       })
-      .catch((error) => console.error('Error fetching user data:', error));
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <div>
-      <h1>User Directory</h1>
-      <div>
-        {users.map((user) => (
-          <UserCard key={user.id} user={user} />
-        ))}
+      <div style={{ textAlign: 'center' }}>
+        <h1>User Directory</h1>
       </div>
+      {loading ? (
+        <CustomLoader />
+      ) : (
+        <div>
+          {users.map((user) => (
+            <UserCard key={user.id} user={user} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
