@@ -38,7 +38,7 @@ const UserDirectory = () => {
   return (
     <div>
       <div style={{ textAlign: 'center' }}>
-        <h1>User Directory</h1>
+        <h1>Users Directory</h1>
       </div>
       {loading ? (
         <CustomLoader />

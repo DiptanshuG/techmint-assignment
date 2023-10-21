@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const CountrySelector = styled.select`
   font-size: 1rem;
@@ -11,9 +11,17 @@ const CountrySelector = styled.select`
   &:focus {
     outline: none;
   }
+
+  @media (max-width: 768px) {
+    margin-left: 8px;
+  }
 `;
 
-const TimezoneSelector = ({ selectedTimezone, onSelectTimezone, timezones }) => {
+const TimezoneSelector = ({
+  selectedTimezone,
+  onSelectTimezone,
+  timezones,
+}) => {
   const handleTimezoneChange = (e) => {
     onSelectTimezone(e.target.value);
   };

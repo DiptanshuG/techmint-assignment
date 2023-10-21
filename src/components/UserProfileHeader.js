@@ -16,12 +16,14 @@ const BackButton = styled(Link)`
   &:hover {
     background-color: #0056b3; /* Darker blue on hover */
   }
+  @media (max-width: 768px) {
+    padding: 3px 13px;
+    border-radius: 8px;
+  }
 `;
 
 const UserProfileHeader = () => {
-  return (
-    <BackButton to="/">Back</BackButton>
-  );
+  return <BackButton to="/">Back</BackButton>;
 };
 
 export default UserProfileHeader;

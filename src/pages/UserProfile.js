@@ -6,8 +6,7 @@ import UserProfileDetails from "../components/UserProfileDetails";
 import UserProfilePosts from "../components/UserProfilePosts";
 import ClockContainer from "../components/ClockContainer";
 import TimezoneSelector from "../components/TimezoneSelector";
-import { getCurrentTime, getUserById, getUserPosts } from "../services/api";
-import timezones from "../dummyData/timezones";
+import { getCurrentTime, getUserById, getUserPosts, getAllTimezones } from "../services/api";
 
 const UserProfileContainer = styled.div`
   background-color: #f0f0f0;
@@ -35,17 +34,49 @@ const UserProfileContentContainer = styled.div`
   width: 100%;
 `;
 
+const UpperSegment = styled.div`
+  background: linear-gradient(to bottom, #007bff, #0056b3);
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const UserProfileTitle = styled.h1`
+  font-size: 1.5rem;
+  margin: 0;
+`;
+
+const UserPostsHeading = styled.h2`
+  font-size: 1.8rem; 
+  color: #007bff;
+  margin: 0;
+`;
+
+
+
 const UserProfile = () => {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedTimezone, setSelectedTimezone] = useState("America/New_York");
+  const [selectedTimezone, setSelectedTimezone] = useState("");
   const [currentTime, setCurrentTime] = useState(null);
   const [isClockPaused, setIsClockPaused] = useState(false);
   const [originalTime, setOriginalTime] = useState(null);
-
+  const [timezones, setTimezones] = useState([]); 
+  
   useEffect(() => {
+    // Fetch the list of timezones
+    getAllTimezones()
+      .then((timezoneData) => {
+        setTimezones(timezoneData);
+      })
+      .catch((error) => {
+        console.error("Error fetching timezones:", error);
+      });
+
     getUserById(userId)
       .then((userData) => {
         setUser(userData);
@@ -104,6 +135,11 @@ const UserProfile = () => {
 
   return (
     <UserProfileContainer>
+      {user && (
+        <UpperSegment>
+          <UserProfileTitle>{user.username}'s Profile</UserProfileTitle>
+        </UpperSegment>
+      )}
       <UserProfileHeaderContainer>
         <UserProfileHeader />
         <TimezoneSelector
@@ -123,7 +159,7 @@ const UserProfile = () => {
         />
       </UserProfileContentContainer>
       <div style={{ textAlign: "center", margin: "20px 0" }}>
-        <h2>User Posts</h2>
+        <UserPostsHeading>User Posts</UserPostsHeading>
       </div>
 
       <UserProfilePosts userPosts={userPosts} isLoading={isLoading} />

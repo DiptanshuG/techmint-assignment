@@ -56,3 +56,17 @@ export async function getCurrentTime(timezone) {
     throw error;
   }
 }
+
+// Fetch a list of timezones (countries)
+export async function getAllTimezones() {
+  try {
+    const response = await fetch(`${WORLD_TIME_API_BASE_URL}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch timezones.");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

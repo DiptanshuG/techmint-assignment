@@ -12,6 +12,11 @@ const ClockContainer = styled.div`
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   margin-top: 5px;
+
+  @media (max-width: 768px) {
+    width: 100%; /* Take full width on mobile */
+    margin-top: 10px; /* Add some margin-top on mobile */
+  }
 `;
 
 const PauseStartButton = styled.button`
@@ -30,6 +35,10 @@ const PauseStartButton = styled.button`
 
   &:focus {
     outline: none;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    margin:2px; /* Add some margin-top on mobile */
   }
 `;
 
