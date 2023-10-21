@@ -16,7 +16,7 @@ const UserCardContainer = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-      @media (max-width: 768px) {
+    @media (max-width: 768px) {
       width: 150px; /* Apply the width on mobile screens (768px or less) */
     }
   }
@@ -37,12 +37,27 @@ const UserCardContainer = styled.div`
   }
 `;
 
+const UserNameLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const UserName = styled.span`
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  @media (max-width: 768px) {
+    width: 150px;
+  }
+`;
+
 const UserCard = ({ user }) => {
   return (
     <UserCardContainer>
-      <Link to={`/user/${user.id}`}>
-        <h2>{user.name}</h2>
-      </Link>
+      <UserNameLink to={`/user/${user.id}`}>
+        <UserName>{user.name}</UserName>
+      </UserNameLink>
       <p>
         <span className="post-count"> Total Posts: {user.totalPosts}</span>
       </p>

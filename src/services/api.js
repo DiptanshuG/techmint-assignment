@@ -1,5 +1,5 @@
 const BASE_URL = "https://jsonplaceholder.typicode.com";
-const WORLD_TIME_API_BASE_URL = "http://worldtimeapi.org/api/timezone";
+const WORLD_TIME_API_BASE_URL = "https://worldtimeapi.org/api/timezone";
 
 // Fetch a list of users
 export async function getUsers() {

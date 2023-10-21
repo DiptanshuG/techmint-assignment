@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { getUsers, getUserPosts } from '../services/api';
-import UserCard from '../components/UserCard';
-import CustomLoader from '../components/Loader';
+import React, { useState, useEffect } from "react";
+import { getUsers, getUserPosts } from "../services/api";
+import UserCard from "../components/UserCard";
+import CustomLoader from "../components/Loader";
 
 const UserDirectory = () => {
   const [users, setUsers] = useState([]);
@@ -11,12 +11,11 @@ const UserDirectory = () => {
     getUsers()
       .then((data) => {
         const fetchUserPostPromises = data.map((user) => {
-          return getUserPosts(user.id)
-            .then((posts) => {
-              user.posts = posts;
-              user.totalPosts = posts.length;
-              return user;
-            });
+          return getUserPosts(user.id).then((posts) => {
+            user.posts = posts;
+            user.totalPosts = posts.length;
+            return user;
+          });
         });
 
         Promise.all(fetchUserPostPromises)
@@ -25,19 +24,19 @@ const UserDirectory = () => {
             setLoading(false);
           })
           .catch((error) => {
-            console.error('Error fetching user posts:', error);
+            console.error("Error fetching user posts:", error);
             setLoading(false);
           });
       })
       .catch((error) => {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
         setLoading(false);
       });
   }, []);
 
   return (
     <div>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: "center" }}>
         <h1>Users Directory</h1>
       </div>
       {loading ? (

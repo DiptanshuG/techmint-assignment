@@ -54,14 +54,12 @@ const TimeZoneContainer = styled.div`
     width: auto;
     flex-direction: row;
     margin: 0 0 0 0;
-
   }
 `;
 
 const UpperSegment = styled.div`
-  background: linear-gradient(to bottom, #007bff, #0056b3);
   padding: 20px;
-  color: #fff;
+  color: #balck;
   text-align: center;
   margin-bottom: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -160,7 +158,7 @@ const UserProfile = () => {
     <UserProfileContainer>
       {user && (
         <UpperSegment>
-          <UserProfileTitle>{user.username}'s Profile</UserProfileTitle>
+          <UserProfileTitle>{`${user?.username}'s Profile Details`}</UserProfileTitle>
         </UpperSegment>
       )}
       <UserProfileHeaderContainer>
@@ -184,7 +182,7 @@ const UserProfile = () => {
         </TimeZoneContainer>
       </UserProfileContentContainer>
       <div style={{ textAlign: "center", margin: "20px 0" }}>
-        <UserPostsHeading>{user?.username}'s Posts</UserPostsHeading>
+        <UserPostsHeading>{`${user?.username}'s Posts`}</UserPostsHeading>
       </div>
 
       <UserProfilePosts userPosts={userPosts} isLoading={isLoading} />
