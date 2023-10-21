@@ -14,7 +14,7 @@ const PostContainer = styled.div`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   &:hover {
-    transform: scale(1.02); /* Slight scale effect on hover */
+    transform: scale(1.02);
   }
 `;
 
@@ -24,11 +24,11 @@ const PostTitle = styled.h3`
   margin: 0;
   margin-bottom: 10px;
   cursor: pointer;
-  display: flex; /* Enable flex layout */
-  align-items: center; /* Center align text and icon */
+  display: flex; 
+  align-items: center; 
 
   &::before {
-    content: "→"; /* Add a right arrow icon before the title */
+    content: "→";
     font-size: 1rem;
     margin-right: 5px;
   }
@@ -45,20 +45,27 @@ const PostPopupOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  background: rgba(0, 0, 0, 0.5); 
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer; /* Add cursor pointer for clickable effect */
+  cursor: pointer;
 `;
 
 const PostPopupContent = styled.div`
   background: #fff;
-  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Improved box-shadow */
-  max-width: 600px; /* Limit the width of the popup */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 600px; 
+  padding: 20px; 
+  margin: 10px; 
+
+  /* Media query for mobile screens */
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
+
 
 const Post = ({ title, content }) => {
   const [isPopupOpen, setPopupOpen] = useState(false);

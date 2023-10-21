@@ -42,12 +42,14 @@ const UserDirectory = () => {
       </div>
       {loading ? (
         <CustomLoader />
-      ) : (
+      ) : users.length > 0 ? (
         <div>
           {users.map((user) => (
             <UserCard key={user.id} user={user} />
           ))}
         </div>
+      ) : (
+        <p>No users available.</p>
       )}
     </div>
   );

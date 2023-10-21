@@ -122,6 +122,10 @@ const UserProfile = () => {
           toggleClock={toggleClock}
         />
       </UserProfileContentContainer>
+      <div style={{ textAlign: "center", margin: "20px 0" }}>
+        <h2>User Posts</h2>
+      </div>
+
       <UserProfilePosts userPosts={userPosts} isLoading={isLoading} />
     </UserProfileContainer>
   );

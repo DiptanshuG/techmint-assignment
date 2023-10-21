@@ -11,6 +11,7 @@ const ClockContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
 `;
 
 const PauseStartButton = styled.button`
