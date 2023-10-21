@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, getUserPosts } from '../services/api';
-import UserCard from './UserCard';
-import CustomLoader from './Loader';
+import UserCard from '../components/UserCard';
+import CustomLoader from '../components/Loader';
 
 const UserDirectory = () => {
   const [users, setUsers] = useState([]);

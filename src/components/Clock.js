@@ -29,9 +29,11 @@ const Clock = ({ currentTime, paused }) => {
     };
   }, [paused]);
 
+  const formattedTime = displayedTime instanceof Date ? displayedTime.toLocaleTimeString() : '';
+
   return (
     <ClockContainer>
-      {displayedTime.toLocaleTimeString()}
+      {formattedTime}
     </ClockContainer>
   );
 };

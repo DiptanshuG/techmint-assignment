@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import UserDirectory from "./components/UserDirectory";
-import UserProfile from "./components/UserProfile";
+import UserProfile from "./pages/UserProfile";
+import UserDirectory from "./pages/UserDirectory";
 
 function App() {
   return (
