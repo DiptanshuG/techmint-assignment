@@ -13,27 +13,44 @@ const CountrySelector = styled.select`
   }
 
   @media (max-width: 768px) {
-    margin-left: 8px;
+    width: 100%;
+    margin-top: 10px;
   }
+`;
+
+const LoadingMessage = styled.div`
+  font-size: 1rem;
+  color: #333;
+  margin-right: 10px;
 `;
 
 const TimezoneSelector = ({
   selectedTimezone,
   onSelectTimezone,
   timezones,
+  isLoading,
 }) => {
   const handleTimezoneChange = (e) => {
     onSelectTimezone(e.target.value);
   };
 
   return (
-    <CountrySelector value={selectedTimezone} onChange={handleTimezoneChange}>
-      {timezones.map((timezone) => (
-        <option key={timezone} value={timezone}>
-          {timezone}
-        </option>
-      ))}
-    </CountrySelector>
+    <>
+      {isLoading ? (
+        <LoadingMessage>Loading timezones...</LoadingMessage>
+      ) : (
+        <CountrySelector
+          value={selectedTimezone}
+          onChange={handleTimezoneChange}
+        >
+          {timezones.map((timezone) => (
+            <option key={timezone} value={timezone}>
+              {timezone}
+            </option>
+          ))}
+        </CountrySelector>
+      )}
+    </>
   );
 };
 

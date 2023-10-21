@@ -6,19 +6,19 @@ const BackButton = styled(Link)`
   text-decoration: none;
   color: #fff;
   background-color: #007bff;
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: 5px 20px;
+  border-radius: 5px;
   font-size: 1.2rem;
   display: inline-block;
   transition: background-color 0.3s;
   text-align: center;
 
   &:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
   }
   @media (max-width: 768px) {
     padding: 3px 13px;
-    border-radius: 8px;
+    border-radius: 5px;
   }
 `;
 

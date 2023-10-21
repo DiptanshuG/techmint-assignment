@@ -6,7 +6,12 @@ import UserProfileDetails from "../components/UserProfileDetails";
 import UserProfilePosts from "../components/UserProfilePosts";
 import ClockContainer from "../components/ClockContainer";
 import TimezoneSelector from "../components/TimezoneSelector";
-import { getCurrentTime, getUserById, getUserPosts, getAllTimezones } from "../services/api";
+import {
+  getCurrentTime,
+  getUserById,
+  getUserPosts,
+  getAllTimezones,
+} from "../services/api";
 
 const UserProfileContainer = styled.div`
   background-color: #f0f0f0;
@@ -28,10 +33,29 @@ const UserProfileHeaderContainer = styled.div`
 
 const UserProfileContentContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const TimeZoneContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  flex-direction: column;
+  margin: 0 10px 0 10px;
+
+  @media (max-width: 768px) {
+    width: auto;
+    flex-direction: row;
+    margin: 0 0 0 0;
+
+  }
 `;
 
 const UpperSegment = styled.div`
@@ -49,12 +73,10 @@ const UserProfileTitle = styled.h1`
 `;
 
 const UserPostsHeading = styled.h2`
-  font-size: 1.8rem; 
+  font-size: 1.8rem;
   color: #007bff;
   margin: 0;
 `;
-
-
 
 const UserProfile = () => {
   const { userId } = useParams();
@@ -65,13 +87,14 @@ const UserProfile = () => {
   const [currentTime, setCurrentTime] = useState(null);
   const [isClockPaused, setIsClockPaused] = useState(false);
   const [originalTime, setOriginalTime] = useState(null);
-  const [timezones, setTimezones] = useState([]); 
-  
+  const [timezones, setTimezones] = useState([]);
+  const [isTimeZonesLoading, setIsTimeZonesLoading] = useState(false);
+
   useEffect(() => {
-    // Fetch the list of timezones
     getAllTimezones()
       .then((timezoneData) => {
         setTimezones(timezoneData);
+        setIsTimeZonesLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching timezones:", error);
@@ -142,24 +165,26 @@ const UserProfile = () => {
       )}
       <UserProfileHeaderContainer>
         <UserProfileHeader />
-        <TimezoneSelector
-          selectedTimezone={selectedTimezone}
-          onSelectTimezone={handleTimezoneChange}
-          timezones={timezones}
-        />
       </UserProfileHeaderContainer>
       <UserProfileContentContainer>
         <UserProfileDetails user={user} isLoading={isLoading} />
-
-        <ClockContainer
-          isClockPaused={isClockPaused}
-          currentTime={currentTime}
-          originalTime={originalTime}
-          toggleClock={toggleClock}
-        />
+        <TimeZoneContainer>
+          <TimezoneSelector
+            selectedTimezone={selectedTimezone}
+            onSelectTimezone={handleTimezoneChange}
+            timezones={timezones}
+            isLoading={isTimeZonesLoading}
+          />
+          <ClockContainer
+            isClockPaused={isClockPaused}
+            currentTime={currentTime}
+            originalTime={originalTime}
+            toggleClock={toggleClock}
+          />
+        </TimeZoneContainer>
       </UserProfileContentContainer>
       <div style={{ textAlign: "center", margin: "20px 0" }}>
-        <UserPostsHeading>User Posts</UserPostsHeading>
+        <UserPostsHeading>{user?.username}'s Posts</UserPostsHeading>
       </div>
 
       <UserProfilePosts userPosts={userPosts} isLoading={isLoading} />

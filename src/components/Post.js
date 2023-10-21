@@ -60,7 +60,6 @@ const PostPopupContent = styled.div`
   padding: 20px; 
   margin: 10px; 
 
-  /* Media query for mobile screens */
   @media (max-width: 768px) {
     padding: 10px;
   }

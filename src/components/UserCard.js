@@ -9,10 +9,16 @@ const UserCardContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  position: relative; 
+  position: relative;
 
   h2 {
     font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+      @media (max-width: 768px) {
+      width: 150px; /* Apply the width on mobile screens (768px or less) */
+    }
   }
 
   p {
@@ -23,7 +29,7 @@ const UserCardContainer = styled.div`
   .post-count {
     position: absolute;
     top: 5px;
-    right: 5px; 
+    right: 5px;
     background-color: #007bff;
     color: #fff;
     border-radius: 5px;

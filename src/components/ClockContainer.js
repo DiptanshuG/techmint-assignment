@@ -14,8 +14,8 @@ const ClockContainer = styled.div`
   margin-top: 5px;
 
   @media (max-width: 768px) {
-    width: 100%; /* Take full width on mobile */
-    margin-top: 10px; /* Add some margin-top on mobile */
+    width: 100%; 
+    margin-top: 10px;
   }
 `;
 
@@ -38,7 +38,7 @@ const PauseStartButton = styled.button`
   }
   @media (max-width: 768px) {
     width: 100%;
-    margin:2px; /* Add some margin-top on mobile */
+    margin:2px; 
   }
 `;
 
