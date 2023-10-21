@@ -116,17 +116,21 @@ const UserProfile = () => {
 
     getCurrentTime(selectedTimezone)
       .then((timeData) => {
-        const currentDatetime = new Date(timeData.datetime);
-        const formattedTime = currentDatetime.toISOString().substr(11, 8);
+        if (timeData && timeData.datetime) {
+          const currentDatetime = new Date(timeData.datetime);
+          const formattedTime = currentDatetime.toISOString().substr(11, 8);
 
-        if (isClockPaused) {
-          setCurrentTime(originalTime);
+          if (isClockPaused) {
+            setCurrentTime(originalTime);
+          } else {
+            setCurrentTime(formattedTime);
+          }
+
+          if (originalTime === null) {
+            setOriginalTime(formattedTime);
+          }
         } else {
-          setCurrentTime(formattedTime);
-        }
-
-        if (originalTime === null) {
-          setOriginalTime(formattedTime);
+          console.error("Invalid time data received:", timeData);
         }
       })
       .catch((error) => {
@@ -182,7 +186,7 @@ const UserProfile = () => {
         </TimeZoneContainer>
       </UserProfileContentContainer>
       <div style={{ textAlign: "center", margin: "20px 0" }}>
-        <UserPostsHeading>{`${user?.username}'s Posts`}</UserPostsHeading>
+        <UserPostsHeading>{`${user?.username ? user?.username: ""}'s Posts`}</UserPostsHeading>
       </div>
 
       <UserProfilePosts userPosts={userPosts} isLoading={isLoading} />
