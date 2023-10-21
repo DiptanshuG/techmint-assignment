@@ -17,7 +17,7 @@ const UserCardContainer = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     @media (max-width: 768px) {
-      width: 150px; /* Apply the width on mobile screens (768px or less) */
+      width: 150px;
     }
   }
 

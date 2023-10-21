@@ -24,8 +24,8 @@ const PostTitle = styled.h3`
   margin: 0;
   margin-bottom: 10px;
   cursor: pointer;
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
 
   &::before {
     content: "→";
@@ -45,7 +45,7 @@ const PostPopupOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,15 +56,19 @@ const PostPopupContent = styled.div`
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 600px; 
-  padding: 20px; 
-  margin: 10px; 
+  max-width: 600px;
+  padding: 20px;
+  margin: 10px;
 
   @media (max-width: 768px) {
     padding: 10px;
   }
 `;
-
+const Label = styled.div`
+  font-size: 1rem;
+  color: grey;
+  font-weight: bold;
+`;
 
 const Post = ({ title, content }) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -80,7 +84,11 @@ const Post = ({ title, content }) => {
   return (
     <div>
       <PostContainer>
+        <Label>Title:</Label>
+
         <PostTitle onClick={openPopup}>{title}</PostTitle>
+        <Label>Content:</Label>
+
         <PostContent>{content}</PostContent>
       </PostContainer>
 
