@@ -9,8 +9,8 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route  path="/" component={UserDirectory} />
-          <Route path="/user/:userId" component={UserProfile} />
+          <Route path="/" element={<UserDirectory />} />
+          <Route path="/user/:userId" element={<UserProfile />} />
         </Routes>
       </div>
     </Router>
