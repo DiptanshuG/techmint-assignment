@@ -113,13 +113,29 @@ const UserProfile = () => {
         console.error("Error fetching user posts:", error);
         setIsLoading(false);
       });
+    if (selectedTimezone) {
+      updateClock();
+    }
+  }, [userId, selectedTimezone, originalTime]);
 
+  const updateClock = () => {
     getCurrentTime(selectedTimezone)
       .then((timeData) => {
-        if (timeData && timeData.datetime) {
+        if (timeData ) {
           const currentDatetime = new Date(timeData.datetime);
-          const formattedTime = currentDatetime.toISOString().substr(11, 8);
 
+          // Extract hours, minutes, seconds, and AM/PM
+          const hours = currentDatetime.getHours();
+          const minutes = currentDatetime.getMinutes();
+          const seconds = currentDatetime.getSeconds();
+          const amOrPm = hours >= 12 ? "PM" : "AM";
+          const formattedHours = hours % 12 || 12;
+
+          // Format the time
+          const formattedTime = `${formattedHours}:${String(minutes).padStart(
+            2,
+            "0"
+          )}:${String(seconds).padStart(2, "0")} ${amOrPm}`;
           if (isClockPaused) {
             setCurrentTime(originalTime);
           } else {
@@ -130,19 +146,29 @@ const UserProfile = () => {
             setOriginalTime(formattedTime);
           }
         } else {
-          console.error("Invalid time data received:", timeData);
+          console.error("Invalid time data received:");
         }
       })
       .catch((error) => {
         console.error("Error fetching current time:", error);
       });
-  }, [userId, selectedTimezone, originalTime]);
+  };
+
+  useEffect(() => {
+    updateClock();
+  }, []);
 
   const toggleClock = () => {
     setIsClockPaused(!isClockPaused);
 
     if (isClockPaused) {
+      // Pause the clock - save the paused time
       setOriginalTime(currentTime);
+    } else {
+      // Resume the clock - start from the saved paused time
+      if (originalTime !== null) {
+        setCurrentTime(originalTime);
+      }
     }
   };
 
@@ -186,7 +212,9 @@ const UserProfile = () => {
         </TimeZoneContainer>
       </UserProfileContentContainer>
       <div style={{ textAlign: "center", margin: "20px 0" }}>
-        <UserPostsHeading>{`${user?.username ? user?.username: ""}'s Posts`}</UserPostsHeading>
+        <UserPostsHeading>{`${
+          user?.username ? user?.username : ""
+        }'s Posts`}</UserPostsHeading>
       </div>
 
       <UserProfilePosts userPosts={userPosts} isLoading={isLoading} />

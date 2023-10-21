@@ -43,6 +43,7 @@ const PauseStartButton = styled.button`
 `;
 
 const ClockContainerComponent = ({ isClockPaused, currentTime, originalTime, toggleClock }) => {
+  console.log({originalTime,currentTime})
   return (
     <ClockContainer>
       <Clock currentTime={isClockPaused ? originalTime : currentTime} paused={isClockPaused} />

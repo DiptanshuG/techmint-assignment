@@ -13,6 +13,7 @@ const ClockContainer = styled.div`
 `;
 
 const Clock = ({ currentTime, paused }) => {
+  
   const [displayedTime, setDisplayedTime] = useState(currentTime || new Date());
 
   useEffect(() => {
