@@ -1,6 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import Clock from './Clock';
+// ClockContainerComponent.js
+import React from "react";
+import styled from "styled-components";
+import Clock from "./Clock";
 
 const ClockContainer = styled.div`
   font-size: 1.5rem;
@@ -14,42 +15,25 @@ const ClockContainer = styled.div`
   margin-top: 5px;
 
   @media (max-width: 768px) {
-    width: 100%; 
+    width: 100%;
     margin-top: 10px;
   }
 `;
 
-const PauseStartButton = styled.button`
-  font-size: 1rem;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-
-  &:focus {
-    outline: none;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-    margin:2px; 
-  }
-`;
-
-const ClockContainerComponent = ({ isClockPaused, currentTime, originalTime, toggleClock }) => {
-  console.log({originalTime,currentTime})
+const ClockContainerComponent = ({
+  isClockPaused,
+  currentTime,
+  toggleClock,
+  setCurrentTime,
+}) => {
   return (
     <ClockContainer>
-      <Clock currentTime={isClockPaused ? originalTime : currentTime} paused={isClockPaused} />
-      <PauseStartButton onClick={toggleClock}>
-        {isClockPaused ? 'Start' : 'Pause'}
-      </PauseStartButton>
+      <Clock
+        setCurrentTime={setCurrentTime}
+        currentTime={currentTime}
+        paused={isClockPaused}
+        toggleClock={toggleClock}
+      />
     </ClockContainer>
   );
 };

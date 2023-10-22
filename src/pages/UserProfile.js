@@ -84,7 +84,6 @@ const UserProfile = () => {
   const [selectedTimezone, setSelectedTimezone] = useState("");
   const [currentTime, setCurrentTime] = useState(null);
   const [isClockPaused, setIsClockPaused] = useState(false);
-  const [originalTime, setOriginalTime] = useState(null);
   const [timezones, setTimezones] = useState([]);
   const [isTimeZonesLoading, setIsTimeZonesLoading] = useState(false);
 
@@ -116,35 +115,14 @@ const UserProfile = () => {
     if (selectedTimezone) {
       updateClock();
     }
-  }, [userId, selectedTimezone, originalTime]);
+  }, [userId, selectedTimezone]);
 
   const updateClock = () => {
     getCurrentTime(selectedTimezone)
       .then((timeData) => {
-        if (timeData ) {
-          const currentDatetime = new Date(timeData.datetime);
-
-          // Extract hours, minutes, seconds, and AM/PM
-          const hours = currentDatetime.getHours();
-          const minutes = currentDatetime.getMinutes();
-          const seconds = currentDatetime.getSeconds();
-          const amOrPm = hours >= 12 ? "PM" : "AM";
-          const formattedHours = hours % 12 || 12;
-
-          // Format the time
-          const formattedTime = `${formattedHours}:${String(minutes).padStart(
-            2,
-            "0"
-          )}:${String(seconds).padStart(2, "0")} ${amOrPm}`;
-          if (isClockPaused) {
-            setCurrentTime(originalTime);
-          } else {
-            setCurrentTime(formattedTime);
-          }
-
-          if (originalTime === null) {
-            setOriginalTime(formattedTime);
-          }
+        if (timeData) {
+          const localTime = timeData.datetime.replace(/(\+\d{2}:\d{2})$/, "");
+          setCurrentTime(new Date(localTime));
         } else {
           console.error("Invalid time data received:");
         }
@@ -156,20 +134,10 @@ const UserProfile = () => {
 
   useEffect(() => {
     updateClock();
-  }, []);
+  }, [selectedTimezone]);
 
   const toggleClock = () => {
     setIsClockPaused(!isClockPaused);
-
-    if (isClockPaused) {
-      // Pause the clock - save the paused time
-      setOriginalTime(currentTime);
-    } else {
-      // Resume the clock - start from the saved paused time
-      if (originalTime !== null) {
-        setCurrentTime(originalTime);
-      }
-    }
   };
 
   const handleTimezoneChange = (newTimezone) => {
@@ -206,8 +174,8 @@ const UserProfile = () => {
           <ClockContainer
             isClockPaused={isClockPaused}
             currentTime={currentTime}
-            originalTime={originalTime}
             toggleClock={toggleClock}
+            setCurrentTime={setCurrentTime}
           />
         </TimeZoneContainer>
       </UserProfileContentContainer>
